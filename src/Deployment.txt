@@ -1,0 +1,105 @@
+Beschreibung des Vorhabens (konsolidiert):
+
+Du erstellst auf einem PC eine vollständig statische Website (HTML/CSS, keine Logik). Diese besteht aus vielen untereinander verlinkten Seiten und verweist auf:
+
+lokale MP4-Dateien (Videothek, >1 GB Gesamtgröße)
+
+externe Inhalte auf YouTube
+
+Diese komplette Struktur (HTML + Videos) soll auf ein Android-Gerät übertragen werden und dort:
+
+offline lauffähig sein (keine Netzwerkverbindung erforderlich für lokale Inhalte)
+
+direkt im Browser nutzbar sein
+
+über einen Shortcut auf dem Startbildschirm gestartet werden
+
+weiterhin YouTube-Links öffnen können (dann natürlich online)
+
+Kernaussage des Setups:
+
+Du willst die Website als lokales, portables Webprojekt auf dem Android-Gerät betreiben, ohne Server, ohne Installation im klassischen Sinne, aber mit möglichst „app-ähnlichem“ Zugriff.
+
+Wichtige technische Implikationen:
+
+Dateibasierte Nutzung (file://)
+
+Die Seite wird direkt aus dem Speicher geöffnet
+
+Einstiegspunkt: index.html
+
+Relative Verlinkung zwingend
+
+Alle Verweise müssen relativ sein:
+
+HTML ↔ HTML
+
+HTML → MP4
+
+Keine absoluten Pfade
+
+Videowiedergabe
+
+Lokale MP4-Dateien werden vom Android-Browser problemlos unterstützt
+
+<video>-Tags funktionieren offline
+
+YouTube-Verhalten
+
+Links zu YouTube bleiben normale externe Links
+
+Beim Antippen:
+
+öffnet sich die YouTube-App oder Browser
+
+benötigt Internet (erwartetes Verhalten)
+
+Datenmenge
+
+1 GB bedeutet:
+
+Speicherung im normalen Gerätespeicher (kein Cache, keine App-internen Limits)
+
+Shortcut-Anforderung
+
+Start über Homescreen erfordert eine browserseitige Funktion („Zum Startbildschirm hinzufügen“)
+
+funktioniert nur zuverlässig, wenn:
+
+die Seite einmal im Browser geöffnet wurde
+
+Letzter offener kritischer Punkt:
+
+Wie genau soll die Seite gestartet werden?
+
+Unter Android gibt es zwei technisch unterschiedliche Varianten:
+
+Variante A: Direkt aus Dateimanager
+
+Öffnen von index.html
+
+Browser zeigt Seite
+
+ggf. manuell „Zum Startbildschirm hinzufügen“
+
+Problem:
+
+Einige Browser behandeln file://-Seiten eingeschränkt
+
+Shortcut-Unterstützung ist nicht immer stabil
+
+Variante B: Minimaler lokaler Server (empfohlen)
+
+Kleine Server-App auf Android (nur lokal, kein Netzwerkzugriff nötig)
+
+Zugriff über http://localhost/...
+
+Vorteile:
+
+stabilere Darstellung
+
+keine Sicherheitsrestriktionen
+
+Shortcut funktioniert zuverlässig
+
+Verhalten wie echte Website

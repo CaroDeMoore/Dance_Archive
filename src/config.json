@@ -1,0 +1,54 @@
+{
+    "groups": {
+        "NUM_OF_GROUPS": 10
+    },
+    "path": {
+        "___ATTENTION___": "Pfade immer mit / angeben!",
+        "archive": "..",
+        "archive_sub": "ArchivA",
+        "html": "html",
+        "video": "../../videothek"
+    },
+    "file": {
+        "xls_input": "Figuren und Folgen - Die Datenbank.xlsm",
+        "html_output": "Figuren und Folgen - Die WebSeite.html",
+        "stylesheet": "styles.css"
+    },
+    "columns": {
+        "admin": 0,
+        "line_comment": 1,
+        "first_group": 1,
+        "figure": 11,
+        "figure_comment": 12,
+        "link": 13,
+        "link_comment": 14
+    },
+    "line_commands": {
+        "CellIsEmpty": "",
+        "Line_Comment": "com",
+        "Line_Def": "def",
+        "Line_Link": "link",
+        "Line_End": "end",
+        "Line_Start": "start",
+        "Hide_Tag": "filter"
+    },
+    "xls": {
+        "dance_sheets": {
+            "CC": "Cha Cha Cha",
+            "JI": "Jive",
+            "RB": "Rumba",
+            "SB": "Samba",
+            "DF": "Discofox",
+            "QS": "Quickstep",
+            "SF": "Slowfox",
+            "SW": "Langsamer Walzer",
+            "AS": "American Smooth",
+            "TG": "Tango",
+            "VW": "Wiener Walzer",
+            "SS": "Salsa",
+            "LAT": "Latein",
+            "STD": "Standard",
+            "ALL": "Alle Tänze"
+        }
+    }
+}

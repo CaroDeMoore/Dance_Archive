@@ -1,0 +1,66 @@
+from typing import List
+
+from Visitor_Base import cVisitor
+from src.Visitor_HTML import cHeader
+
+
+class LATEXVisitor(cVisitor):
+
+    def visit_header(self, node: cHeader):
+        print("  <header>")
+        print(f"    <h1>{node.h1}</h1>")
+        print(f'    <p class="path mono">{node.nav}</p>')
+        print("  </header>")
+
+    def visit_body(self, node: cBody):
+        print("<body>")
+        node.header.accept(self)
+        node.section_list.accept(self)
+        print("</body>")
+
+    def visit_html(self, node: cHTML):
+        """
+        <html lang="de">
+        <!doctype html>
+        <html lang="de">
+        <head>
+        ...
+        <head/>
+        <body>
+        ...
+        </body>
+        </html>
+        """
+        print(('<html lang="de"' "<!doctype html>" '<html lang="de">")'))
+        node.head.accept(self)
+        node.body.accept(self)
+        print(("</body>" "</html>"))
+
+    def visit_nav(self, node: List[cNav]):
+        print("  <nav>")
+        print("    <ul>")
+        for item in node:
+            item.accept(self)
+        print("    </ul>")
+        print("  </nav>")
+
+    def visit_href(self, node: cHref):
+        # <a href="#grundlagen">alle Grundlagenschritte</a>
+        print("")
+
+    def visit_ul(self, node: cul):
+        """
+        <ul>
+           <li><a href="#grundschritt">Grundschritt (GS)</a></li>
+           ...
+           <li><a href="#grundlagen">alle Grundlagenschritte</a></li>
+        </ul>
+        """
+        print("")
+
+    def visit_link(self, node: cLink):
+        # <a class="video" href="https://www.youtube.com/watch?v=xNx16-QIJ_A" target="_blank" rel="noopener">Video ansehen</a></p>
+        print(f"{node.text}")
+
+    def visit_section(self, node: cSection):
+        print(f"{node.h2}")
