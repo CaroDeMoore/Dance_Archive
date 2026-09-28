@@ -1,0 +1,90 @@
+Weiter bei:
+
+Zugriff auf Excel über Spaltennamen, nicht über Index
+  Das vereinfacht die SChnittstelle zwisch excel und Pandas
+  xxx96: liest die falsche Zeile, wird weiter unten richtig gemacht - raus?
+
+Discofox Zeil8: der Kommentar aus def landet nicht beim Video
+---> Änderung: die Kommentarezum Video stehen immer beim Video
+    der Figur-Kommentar kommt unter die Überschrift
+
+Mal chekcen:
+betachtet man die Gruppe alles, wäre es hilfreich, die "echte" Gruppe zu sehen. 
+Es bräuchte eine 2 Spalte mit dem Gruppennamen. Dadurch wird diese Seite aber zum Sonderfall...
+
+xxx189  schlechtes Abbruchkriterium
+
+Die Methode cleanFromSpecialChars() müsste auch mit .as_posix zu machen sein?
+
+xxx214
+  Grundsatzproblem: relative Pfade in Parent-html-Dokumenten, 
+  die auf Child-html-Dokumente weisen,
+  müssen im Kontext des Parent gebaut werden (sind von Parent aus relativ):
+  Dafür gab es mal einen Pfad "back_to_base", der muss mit in cHTML()
+  xxx214 baut das ToC außerhalb des Kontextes von Parent (die Gruppenseite) 
+
+Organisation der Videothek
+  Doppelte Datenhaltung vermeiden.
+  Thematische Archive: privat, öffentlich.
+  Archive können mit 2/mehreren Aufrufen gebaut werden, jew. mit anderen Videotheken
+  --> Pfad zur Videothek muss Parameter werden
+
+Die Figuren mit der Info ausstatten, zu welchen Gruppen sie gehören.
+    Könnte man mit hover-Action "ausgeben"
+
+  xxx457: classefigure-header-meta ist hartcodiert
+
+prüfen, ob die Excelzeile stimmt.
+    Eine Figur kann in mehreren Zeilen stehen, welche Zeile wird genommen?
+
+  nodes xxx184: warum steht hier ein leerer Link?!
+    --> den Parameter durch eine Methode setLink ersetzen. 
+    copy() hängt sonst einen leeren Link an die Linkliste
+
+  für Zwischendurch
+  - cLink etwas aufbohren: link als string und als as_posix ablegen und nutzen. 
+    Nicht mehr wo anders den posix bauen
+  - Datei Alles.html in Alles: umbenennen in _Alles.html.
+    Und das auch bei allen anderen. Dann steht die Datei mit dem ToC immer oben.
+  - die role in enum wandeln. Man braucht dann keinen String mehr.
+    HTML_MAP wird dann:
+        HTML_MAP: dict[enum, dict[str, dict[str, list[str]]]]
+    Einfach für alles, was in cRoles steht. 
+      from enum import Enum, auto
+      class cRoles(Enum):
+          TOC = auto()
+          TOC_ENTRY = auto()
+          DANCE = auto()
+          ...
+    Die Einträge
+      cGroupLessonDates_default_role
+      ...
+    müssen extra auf enums gemappt werden. 
+    Nicht so schön aber überschaubar, das es nur wenige Kla
+
+ 
+- leere defs abfangen, darf nicht zum Fehler führen
+- Figuren ohne Lessondate: muss möglich sein
+- to do tree installieren in VS Code
+- Einrichtung auf der NAS
+- bredacrumbs umsetzen, s. chatty
+    Seiten mit footer und header ausstatten
+    cHTML muss erweitert werden
+
+ein debug, der die Excelzeile mit ausgibt
+    z.T. done,  zZt ist ein DEBUG in HTML-Visitor_Base
+    muss noch aus dem xls geholt werden:
+    Quelle: in der Zeile, in der start steht, könnte man Parameter/Attribute ablegen
+
+KursInformation auch aus Excel holen
+
+Gruppenfilter
+eine Gruppe "die letzen 4 Stunden"
+Eine Gruppe "Zukünftiges" einühren.
+Das erlaubt es, vorzuabeiten und enen Ausblick bieten zu können
+Weiter Gruppe für eigene Filme zur fremden oder eignen Verwendung
+
+preceed & follow ergänzen
+    cFiugure muss ergänzt werden.
+    Die Daten kommen aus einer eingenen Preceed/Follow-Tabelle
+
