@@ -1,0 +1,6 @@
+# ein "/" am Ende ignoriert diese Ordner an jeder Stelle im Projekt.
+.venv/
+__pycache__/
+.vscode/
+html_writer.egg-info/
+yt-dlp/

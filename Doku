@@ -1,0 +1,122 @@
+
+**************************************************************************************
+                Dokumentation
+**************************************************************************************
+
+Archiv erstellen
+----------------------------------------------------------
+  Excel erzeugt eine Videothek mit allen Videos.
+  Jedes Video wird als privat oder öffentlich gekennzeichnet.
+  Die Erstellung des Archives erfolgt dann über den Aufruf von build_html.bat.
+
+Parameter
+-----------------------------------------------------------
+  Pfad zur Figurensammlung.xlsm
+  Pfad zum Archiv-Ordner
+  Name der Datenbank
+  Erzeugung privat oder öffentlich
+
+Gestaltung
+-----------------------------------------------------------
+    - erstmal was da
+    - immernoch unklar: mehrere Klassen und deren Kombination
+ssen gibt.
+   
+Idee der Gestaltung:
+  Alle html-Elemente belegen ihr class-Attribut gemäße ihrer Rolle mit css-Klassen.
+  Die benutzten css-Klassen werden im css (mit Punkt davor) definiert.
+  Die Gestaltung der html-Elemente entsteht duch die Kombination der css-Klassen.
+
+  Wichtig: html-Elemente werdem über ihre css-Klassen gestaltet.
+  Vermieden werden html-Einträge ohne css-Klasse, z.Bsp nav (ohne Punkt) - versteckter default, schlecht.
+  Das setzt vorraus, dass alle(!) html-Elemente eine Klassenangabe enthalten, siehe unten.
+  Man kann nav, li, ... (ohne Punkt) dennoch als doppelte Absicherung nutzen, 
+    falls doch mal eine Klasse fehlt oder falsch geschrieben wurde.
+    ... wenn eine Klasse aus Versehen falsch geschrieben wurde:
+      -> Klasse nicht im css, keine Regel über die Klasse.
+      Wenn es aber eine Regel für das html-Tag gibt, greift eben diese.
+    Wenn es beides gibt, greift die Klassenregel vor der Tag-Regel, weil spezifischer.
+
+  Absicherung der Klassenangabe:
+    Jede Klasse ruft 
+        super().__init__()
+      wo 
+        role = klassenname_default_role 
+    gesetzt wird.
+    Dem folgend gibt es für alle Klassen eine (auffällige) Definition für klassenname_default_role.
+    So kann man nicht gestatltet Rollen gut erkennen.
+    Der Visitor überschreibt die default_role mit der richtigen Rolle, bzw. Rollen
+      
+Im Moment ok aber offen: nodes.py:     # xxx58
+    "../.." / Path(VIDEO_FOLDER) / pLink   
+    der relative Pfad ist hartcodiert. Offen ist hier, wo die Datei, in der dieser Link steht.
+    Und damit offen: wo der Pfad zum Projekt herbekommt
+    Wenn die Datei im Verzeichnis höher oder tiefer wandert, funktioniert das nicht mehr
+
+Ordnerstruktur
+----------------------------------------------------------------------------------------------
+/Archiv                                       - ArchivBase 
+  ├─ Figuren und Folgen - Die Datenbank.xlsm  - die Datenbank
+  ├─Source
+  │  ├─ main.py                               - hier steht __file__; Pfad nach ArchivBase ist Inputparameter, also: "../"
+  │  ├─ scr
+  │  │  ├─ Code-Dateien
+  │  │  └─ ...
+  │  ├─ Konfig-Dateien
+  │  ├─ exe-builder
+  │  ├─ workspace
+  │  └─ ...
+  └─ ArchivA                                  - konkrete(s) Archiv(e), Archivnmae ist Inputparameter 
+      ├─ main.exe                             - Pfad 
+      ├─ styles.css
+      ├─ Figuren und Folgen - Die Datenbank.html
+      ├─ videothek/  
+      │  ├─ video1.mp4
+      │  └─ ...
+      └─ html/
+        ├─ Alles
+        │  ├─ CC/
+        │  ├─ RB/
+        │  └─ ...
+        ├─ Gruppe 1
+        │  ├─ CC/
+        │  ├─ RB/
+        │  └─ ...
+        ├─ ... gruppen
+        │  └─ ...tänze
+        └─ ...
+  ├─ ggf weitere Archive
+  └─ ...  
+
+irgendwo anders stehen :
+    - WORK_DIR mit main
+    - Figuren und Folgen - Die Datenbank.xlsm
+
+Es gibt 2 relevante Pfade, relativ zu WORK_DIR:
+    1.: wo steht die Figurensammlung
+    2.: wo soll die Ausgabe hin  
+Diese werden main.py übergeben.
+
+Achtung bei den Pfaden:
+    - Pfade, die das html-Dokument betreffen: 
+          Relevant für die Ausführung auf diesem PC.
+          Sind absolut.
+    - Pfade, die als Daten in html-Dokumenten enthalten sind: Video-Links, Stylesheet
+          Sind relativ
+      Immer mit quote(path.as_posix()) bauen:
+          Path(...) / ... → Pfad korrekt zusammensetzen
+          .as_posix() → / als Trenner erzwingen
+          quote(...) → URL-Encoding
+          safe="/" beibehalten (Standard)
+
+   
+Klasse cHTML; Pfad der html-Dokumente
+    - Bezug aller Dateien ist der Projektpfad HTML_Writer
+    - html-Dokumente bekommen im Konstruktor 
+        - ihren Namen
+        - den relativen Pfad zum Projekt 
+        - den Ort, wo sie angelegt werden sollen
+        - den Namen des css
+        - den relativen Pfad vom Projekt zum css
+      Da ist Redundanz drin, könnte bei Umgestaltung eine Vereinfachung sein
+

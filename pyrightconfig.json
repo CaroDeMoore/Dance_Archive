@@ -1,0 +1,18 @@
+{
+    // nur dieser Ordner wird geprüft
+    // "include": [
+    //    "main.py",
+    //    "XLS_Reader.py"
+    // ],
+    "exclude": [
+        "**/venv", // virtuelle Umgebung
+        "**/__pycache__",
+        "**/.venv"
+    ],
+    "ignore": [
+        "tests/alt", // ignoriert, aber restliches Projekt bleibt aktiv
+        "html.py",
+        "Visitor_Latex.py"
+    ],
+    "typeCheckingMode": "strict"
+}
