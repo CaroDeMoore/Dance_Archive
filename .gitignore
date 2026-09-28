@@ -4,4 +4,4 @@ __pycache__/
 .vscode/
 html_writer.egg-info/
 yt-dlp/
-*.xlms
+*.xlsm
